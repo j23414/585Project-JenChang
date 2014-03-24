@@ -1,0 +1,13 @@
+STAT 585 Project
+========================================================
+Name: Jennifer Chang
+Date: March 24, 2014
+
+Description: Twitter Data
+
+Load information from Twitter:
+```{r}
+x<-c(1:10)
+plot(x)
+```
+
