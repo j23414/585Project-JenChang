@@ -3,7 +3,18 @@ STAT 585 Project
 Name: Jennifer Chang
 Date: March 24, 2014
 
-Description: Twitter Data
+Topic: Twitter ENCODE Project
+
+Questions of Interest:
+* What comments are due to each paper?
+* Was ENCODE viewed in a positive or negative light?
+
+Motivation:
+
+Data Available:
+* Twitter Tweets
+
+Data Collection: how is it to be collected, collated, merged, processed
 
 Load information from Twitter:
 ```{r}
