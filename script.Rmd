@@ -18,7 +18,46 @@ Data Collection: how is it to be collected, collated, merged, processed
 
 Load information from Twitter:
 ```{r}
-x<-c(1:10)
-plot(x)
+# Connect to Twitter
+# Online Directions: http://thinktostart.wordpress.com/2013/05/22/twitter-authentification-with-r/
+library(RCurl)
+options(RCurlOptions=list(cainfo=system.file("CurlSSL", "cacert.pem",package="RCurl")))
+require(twitteR)
+reqURL<-"https://api.twitter.com/oauth/request_token"
+accessURL<-"https://api.twitter.com/oauth/access_token"
+authURL<-"https://api.twitter.com/oauth/authorize"
+consumerKey<-"7LTjhEJ19yEs5rsV5x60TA"
+consumerSecret<-"8YZc0wfGVvi5IOIsN795QxXubSnKNwiHH4C2xiWMPc"
+
+twitCred<-OAuthFactory$new(consumerKey=consumerKey,consumerSecret=consumerSecret, requestURL=reqURL, accessURL=accessURL, authURL=authURL)
+twitCred$handshake(cainfo=system.file("CurlSSL","cacert.pem",package="RCurl"))
+registerTwitterOAuth(twitCred)
+
+# work with Twitter Data
+rsTweets<-searchTwitter("#Olympics", n=500) # search twitter
+saveRDS(rsTweets, file="rsTweets.RData") # save search
+rsTweets<-readRDS("rsTweets.RData") # read in saved search
+str(rsTweets[[1]])
+
+rsTweets[[1]]$getText()
+rsTweets[[1]]$getScreenName()
+library(plyr)
+tweets.df=ldply(rsTweets,function(t) t$toDataFrame())
+names(tweets.df)
+head(tweets.df)
+head(tweets.df$text)
+head(tweets.df$screenName)
 ```
 
+Shiny basic example
+```{r}
+library(shiny)
+runExample("01_hello")
+runExample()
+
+# Creating a Shiny app requires creating two files and putting it into a folder (e.g. shiny_app)
+# 1) ui.R (user interface)
+# 2) server.R
+
+runApp("shiny_app") # run the app by giving the folder name (and loc)
+```
